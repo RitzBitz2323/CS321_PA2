@@ -7,6 +7,7 @@ public class PA2 {
 
 	public static void main(String[] args) {		
 		// Iterate through file and pull each instructions binary one by one.
+		// Kyle Test
         File file = new File("./test.txt");
         Scanner scan = null;
 		try {
