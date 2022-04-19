@@ -4,13 +4,13 @@ public class B_Instruction extends Instruction {
 
 	public B_Instruction(String name, String remainingBinary) {
 		super(name);
-		// TODO Auto-generated constructor stub
+		BR_address = remainingBinary;
 	}
 
 	@Override
 	public void printInstruction() {
-		// TODO Auto-generated method stub
-		
+		String ActualBR_address = PA2.convertToDecimal(BR_address);
+		System.out.println(name +" " + ActualBR_address);
 	}
 
 }

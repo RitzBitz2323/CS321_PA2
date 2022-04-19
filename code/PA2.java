@@ -8,38 +8,54 @@ public class PA2 {
 	public static void main(String[] args) {		
 		// Iterate through file and pull each instructions binary one by one.
 		// Kyle Test
-        File file = new File("./test.txt");
-        Scanner scan = null;
-		try {
-			scan = new Scanner(file);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//        File file = new File("./test.txt");
+//        Scanner scan = null;
+//		try {
+//			scan = new Scanner(file);
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
         ArrayList<String> ListOfInstructions = new ArrayList<>();
-        String temporaryInstrucString = "";
-        char ch = scan.next().charAt(0);
-        while(scan.hasNextLine()){
-            for(int i =0; i < 32; i++){
-                temporaryInstrucString = temporaryInstrucString + ch;
-            }
-            ListOfInstructions.add(temporaryInstrucString);
-        }
-        // Put them into an array list
-            System.out.println(ListOfInstructions.toString());
+//        String temporaryInstrucString = "";
+//        char ch = scan.next().charAt(0);
+//        while(scan.hasNextLine()){
+//            for(int i =0; i < 32; i++){
+//                temporaryInstrucString = temporaryInstrucString + ch;
+//            }
+//            ListOfInstructions.add(temporaryInstrucString);
+//        }
+//        // Put them into an array list
+//            System.out.println(ListOfInstructions.toString());
 		
 		// Put them into an array list
 		String ADDCustom = "10001011000001000000000001100000";
 		String ADDCustom2 = "11010011011000000001001001101011";
+		String ADDCustom3 = "11111000010000001000000101001001";
+		String ADDCustom4 = "11111000000000010000001010010011";
+		String ADDCustom5 = "10010001000000000010001000110101";
+		String ADDCustom6 = "10110100000000000000100010001110";
+		String ADDCustom7 = "10110101111111111111110101010101";
+		String ADDCustom8 = "01010100000000000000010000101010";
+		String ADDCustom9 = "00010100000000000000000000101111";
+
+
+
 		ListOfInstructions.add(ADDCustom);
 		ListOfInstructions.add(ADDCustom2);
+		ListOfInstructions.add(ADDCustom3);
+		ListOfInstructions.add(ADDCustom4);
+		ListOfInstructions.add(ADDCustom5);
+		ListOfInstructions.add(ADDCustom6);
+		ListOfInstructions.add(ADDCustom7);
+		ListOfInstructions.add(ADDCustom8);
+		ListOfInstructions.add(ADDCustom9);
+
 
 		findOpcode(ListOfInstructions);
-		
 	}
 
-	private static String findOpcode(ArrayList<String> InstructionsList) {
-		String InstructionName = "";
+	private static void findOpcode(ArrayList<String> InstructionsList) {
 		Instruction myInstruction = null;
 		// Iterate through each instruction and classify them by length
 		for (int i = 0; i < InstructionsList.size(); i++) {
@@ -48,10 +64,12 @@ public class PA2 {
 			// Find 6 bit opcodes
 			switch (currentInstruction.substring(0, 6)) {
 			case "000101":
-				// This is B, Do stuff here
+				// This is B, do stuff here
+				myInstruction = new B_Instruction("B", currentInstruction.substring(6));
 				break;
 			case "100101":
 				// This is BL, do stuff here
+				myInstruction = new B_Instruction("BL", currentInstruction.substring(6));
 				break;
 			}
 			
@@ -59,12 +77,15 @@ public class PA2 {
 			switch (currentInstruction.substring(0, 8)) {
 			case "01010100":
 				// This is B.cond, do stuff here
+				myInstruction = new CB_Instruction("B.cond", currentInstruction.substring(8));
 				break;
 			case "10110100":
 				// This is CBZ, do stuff here
+				myInstruction = new CB_Instruction("CBZ", currentInstruction.substring(8));
 				break;
 			case "10110101":
 				// This is CBNZ, do stuff here
+				myInstruction = new CB_Instruction("CBNZ", currentInstruction.substring(8));
 				break;
 			}
 			
@@ -167,13 +188,43 @@ public class PA2 {
 			}
 			myInstruction.printInstruction();
 		}
-		return InstructionName;
 	}
 	
 	public static String convertToDecimal(String binaryNumber) {
-		int decimal=Integer.parseInt(binaryNumber, 2);  
-		String s = Integer.toString(decimal);  
-		return s;
+		String s = "";
+		// This is a normal register, don't convert twos complement
+		if (binaryNumber.length() == 5) {
+			int decimal=Integer.parseInt(binaryNumber, 2);  
+			s = Integer.toString(decimal);  
+			return s;
+		}
+		else if (binaryNumber.charAt(0) == '1') {
+	        String invertedInt = invertDigits(binaryNumber);
+	        //Change this to decimal format.
+	        int decimalValue = Integer.parseInt(invertedInt, 2);
+	        //Add 1 to the current decimal and multiply it by -1 because we know it's a negative number
+	        decimalValue = (decimalValue + 1) * -1;
+	        s = Integer.toString(decimalValue);
+	        //return the final result
+	        return s;
+	    } else {
+	        // Else we know it's a positive number
+	    	int decimal=Integer.parseInt(binaryNumber, 2);  
+			s = Integer.toString(decimal);  
+			return s;
+	    }
+		
+//		int decimal=Integer.parseInt(binaryNumber, 2);  
+//		String s = Integer.toString(decimal);  
+//		return s;
+	}
+	
+	public static String invertDigits(String binaryInt) {
+	    String result = binaryInt;
+	    result = result.replace("0", " "); //temp replace 0s
+	    result = result.replace("1", "0"); //replace 1s with 0s
+	    result = result.replace(" ", "1"); //put the 1s back in
+	    return result;
 	}
 
 }

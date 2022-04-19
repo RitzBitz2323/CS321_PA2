@@ -7,13 +7,20 @@ public class D_Instruction extends Instruction {
 
 	public D_Instruction(String name, String remainingBinary) {
 		super(name);
-		// TODO Auto-generated constructor stub
+		DT_address = remainingBinary.substring(0, 9);
+		op = remainingBinary.substring(9, 11);
+		Rn = remainingBinary.substring(11, 16);
+		Rt = remainingBinary.substring(16);
 	}
 
 	@Override
 	public void printInstruction() {
-		// TODO Auto-generated method stub
+		String ActualDT_address = PA2.convertToDecimal(DT_address);
+		String ActualRn = PA2.convertToDecimal(Rn);
+		String ActualRt = PA2.convertToDecimal(Rt);
 		
+		// Specifically for LDUR and STUR
+		System.out.println(name +" X" + ActualRt +", [X" + ActualRn +", #" + ActualDT_address + "]");
 	}
 
 }

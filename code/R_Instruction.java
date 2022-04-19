@@ -7,7 +7,6 @@ public class R_Instruction extends Instruction {
 
 	public R_Instruction(String name, String remainingBinary) {
 		super(name);
-		// NEED TO FIX AND TEST THESE
 		Rm = remainingBinary.substring(0, 5);
 		shamt = remainingBinary.substring(5, 11);
 		Rn = remainingBinary.substring(11, 16);
@@ -23,11 +22,9 @@ public class R_Instruction extends Instruction {
 		if (ActualShamt.equals("0")) {
 			System.out.println(name +" X" + ActualRd +", X" + ActualRn +", X" + ActualRm);
 		}
-		// MAYBE AT IF ELSE HERE FOR MUL
+		// MAYBE ADD IF ELSE HERE FOR MUL
 		else {
 			System.out.println(name +" X" + ActualRd +", X" + ActualRn +", #" + ActualShamt);
 		}
-		
 	}
-
 }
