@@ -1,11 +1,47 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class PA2 {
 
-	public static void main(String[] args) {		
+	public static void main(String[] args) {	
+		
+		// Array list used to store instructions
+        ArrayList<String> ListOfInstructions = new ArrayList<>();
+		
+		File file = new File(args[0]);
+		FileInputStream stream = null;
+		try {
+			stream = new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+				
+		byte mybyte;
+		 try {
+			while(stream.available() > 0) {
+				 String individualInstruction = "";
+				 // reads 4 bytes at a time and puts them into a string
+				 for(int i = 0; i < 4; i++) {
+					 mybyte = (byte) stream.read();
+					 individualInstruction = individualInstruction + String.format("%8s", Integer.toBinaryString(mybyte & 0xFF)).replace(' ', '0');
+				 }
+				 // add individualInstruction to the list of instructions
+				 ListOfInstructions.add(individualInstruction);
+			 }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 
+		 try {
+			 stream.close();
+		 } catch (IOException e) {
+			 e.printStackTrace();
+		 }
+		 
+		
 		// Iterate through file and pull each instructions binary one by one.
 //        File file = new File("./test.txt");
 //        Scanner scan = null;
@@ -15,7 +51,6 @@ public class PA2 {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-        ArrayList<String> ListOfInstructions = new ArrayList<>();
 //        String temporaryInstrucString = "";
 //        char ch = scan.next().charAt(0);
 //        while(scan.hasNextLine()){
@@ -212,10 +247,6 @@ public class PA2 {
 			s = Integer.toString(decimal);  
 			return s;
 	    }
-		
-//		int decimal=Integer.parseInt(binaryNumber, 2);  
-//		String s = Integer.toString(decimal);  
-//		return s;
 	}
 	
 	public static String invertDigits(String binaryInt) {
