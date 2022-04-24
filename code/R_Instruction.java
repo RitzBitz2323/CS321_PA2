@@ -19,10 +19,19 @@ public class R_Instruction extends Instruction {
 		String ActualShamt = PA2.convertToDecimal(shamt);
 		String ActualRn = PA2.convertToDecimal(Rn);
 		String ActualRm = PA2.convertToDecimal(Rm);
-		if (ActualShamt.equals("0")) {
+		
+		if (name.equals("PRNT")) {
+			System.out.println(name +" X" + ActualRd);
+		}
+		else if ((name.equals("PRNL")) || (name.equals("HALT")) || (name.equals("DUMP"))) {
+			System.out.println(name);
+		}
+		else if (name.equals("BR")) {
+			System.out.println(name +" X" + ActualRn);
+		}
+		else if (ActualShamt.equals("0")) {
 			System.out.println(name +" X" + ActualRd +", X" + ActualRn +", X" + ActualRm);
 		}
-		// MAYBE ADD IF ELSE HERE FOR MUL
 		else {
 			System.out.println(name +" X" + ActualRd +", X" + ActualRn +", #" + ActualShamt);
 		}

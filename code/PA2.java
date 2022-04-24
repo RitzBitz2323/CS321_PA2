@@ -11,7 +11,8 @@ public class PA2 {
 		// Array list used to store instructions
         ArrayList<String> ListOfInstructions = new ArrayList<>();
 		
-		File file = new File(args[0]);
+        // I had to use my full path to get it to work
+		File file = new File("C://COMS_321/321_Second_Assignment/CS321_PA2/code/PA2_test3.machine");
 		FileInputStream stream = null;
 		try {
 			stream = new FileInputStream(file);
@@ -34,56 +35,39 @@ public class PA2 {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		 
 		 try {
 			 stream.close();
 		 } catch (IOException e) {
 			 e.printStackTrace();
 		 }
 		 
-		
-		// Iterate through file and pull each instructions binary one by one.
-//        File file = new File("./test.txt");
-//        Scanner scan = null;
-//		try {
-//			scan = new Scanner(file);
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//        String temporaryInstrucString = "";
-//        char ch = scan.next().charAt(0);
-//        while(scan.hasNextLine()){
-//            for(int i =0; i < 32; i++){
-//                temporaryInstrucString = temporaryInstrucString + ch;
-//            }
-//            ListOfInstructions.add(temporaryInstrucString);
-//        }
-//        // Put them into an array list
-//            System.out.println(ListOfInstructions.toString());
-		
-		// Put them into an array list
-		String ADDCustom = "10001011000001000000000001100000";
-		String ADDCustom2 = "11010011011000000001001001101011";
-		String ADDCustom3 = "11111000010000001000000101001001";
-		String ADDCustom4 = "11111000000000010000001010010011";
-		String ADDCustom5 = "10010001000000000010001000110101";
-		String ADDCustom6 = "10110100000000000000100010001110";
-		String ADDCustom7 = "10110101111111111111110101010101";
-		String ADDCustom8 = "01010100000000000000010000101010";
-		String ADDCustom9 = "00010100000000000000000000101111";
+//		String ADDCustom = "10001011000001000000000001100000";
+//		String ADDCustom2 = "11010011011000000001001001101011";
+//		String ADDCustom3 = "11111000010000001000000101001001";
+//		String ADDCustom4 = "11111000000000010000001010010011";
+//		String ADDCustom5 = "10010001000000000010001000110101";
+//		String ADDCustom6 = "10110100000000000000100010001110";
+//		String ADDCustom7 = "10110101111111111111110101010101";
+//		String ADDCustom8 = "01010100000000000000010000101010";
+//		String ADDCustom9 = "00010100000000000000000000101111";
+//		String ADDCustom10 = "11010110000000000000001111000000";
 
+			
 
+//
+//
+//
+//		ListOfInstructions.add(ADDCustom);
+//		ListOfInstructions.add(ADDCustom2);
+//		ListOfInstructions.add(ADDCustom3);
+//		ListOfInstructions.add(ADDCustom4);
+//		ListOfInstructions.add(ADDCustom5);
+//		ListOfInstructions.add(ADDCustom6);
+//		ListOfInstructions.add(ADDCustom7);
+//		ListOfInstructions.add(ADDCustom8);
+//		ListOfInstructions.add(ADDCustom9);
+//		ListOfInstructions.add(ADDCustom10);
 
-		ListOfInstructions.add(ADDCustom);
-		ListOfInstructions.add(ADDCustom2);
-		ListOfInstructions.add(ADDCustom3);
-		ListOfInstructions.add(ADDCustom4);
-		ListOfInstructions.add(ADDCustom5);
-		ListOfInstructions.add(ADDCustom6);
-		ListOfInstructions.add(ADDCustom7);
-		ListOfInstructions.add(ADDCustom8);
-		ListOfInstructions.add(ADDCustom9);
 
 
 		findOpcode(ListOfInstructions);
@@ -234,12 +218,12 @@ public class PA2 {
 		}
 		else if (binaryNumber.charAt(0) == '1') {
 	        String invertedInt = invertDigits(binaryNumber);
-	        //Change this to decimal format.
+	        // Change this to decimal.
 	        int decimalValue = Integer.parseInt(invertedInt, 2);
-	        //Add 1 to the current decimal and multiply it by -1 because we know it's a negative number
+	        // Add 1 to the current decimal and make negative
 	        decimalValue = (decimalValue + 1) * -1;
 	        s = Integer.toString(decimalValue);
-	        //return the final result
+	        // Return the final result
 	        return s;
 	    } else {
 	        // Else we know it's a positive number
